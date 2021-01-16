@@ -1,6 +1,7 @@
 <template>
 
     <v-container class="fill-height" fluid>
+        <app-notifications ref="notifications"/>
 
         <v-row justify="center">
 
@@ -16,7 +17,7 @@
 
                     <v-card-text>
 
-                        <v-form ref="login">
+                        <v-form  ref="login">
 
                             <v-text-field
                                 label="Email"
@@ -24,6 +25,7 @@
                                 type="text"
                                 v-model="email"
                                 :rules="$root.rules.email"
+                                @keyup.enter="handleLogin"
                             />
 
                             <v-text-field
@@ -32,6 +34,7 @@
                                 type="password"
                                 v-model="password"
                                 :rules="$root.rules.password"
+                                @keyup.enter="handleLogin"
                             />
 
                         </v-form>
@@ -80,19 +83,32 @@ export default {
 
     methods: {
 
-        async handleLogin () {
+        handleLogin: async function () {
+
             if (!this.$refs.login.validate()) return;
 
             let response = await this.$root.$store.dispatch('auth/login', {email: this.email.toLowerCase(), password: this.password});
 
             let message = this.$root.$store.getters['auth/authenticationMessage'];
             let status = this.$root.$store.getters['auth/authenticationStatus'];
-            let activities = this.$root.$store.getters['auth/activities'];
 
-            console.log(message);
-            console.log(status);
-            console.log(activities);
+            this.$store.commit("utils/setStatus", status);
+            this.$store.commit("utils/setErrors", message);
+            if(status == 401) {
 
+        //TODO: Snackbar
+
+              //  this.$root.errors = message;
+
+
+             //   this.$root.status = status;
+
+
+            } else {
+
+               // await this.$router.push("/activities");
+
+            }
 
         },
 

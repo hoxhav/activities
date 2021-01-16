@@ -27,7 +27,7 @@ const ApiService = {
         Vue.prototype.$axios.defaults.headers.common = {}
     },
 
-    get(resource) {
+    async get(resource) {
         return Vue.prototype.$axios.get(resource)
     },
 

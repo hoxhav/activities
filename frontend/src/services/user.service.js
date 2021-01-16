@@ -2,11 +2,12 @@ import ApiService from './api.service'
 import TokenService from './token.service'
 
 class AuthenticationError extends Error {
-    constructor(errorCode, message) {
+    constructor(errorCode, message, errors = []) {
         super(message);
         this.name = this.constructor.name;
         this.message = message;
         this.errorCode = errorCode;
+        this.errors = errors;
     }
 }
 
@@ -35,7 +36,6 @@ const UserService = {
                 await ApiService.setHeader();
                 return {
                     status: response.status,
-                    activities: response.data.user,
                     message: response.statusText,
                     token: response.data.access_token
                 }
@@ -47,15 +47,41 @@ const UserService = {
             }
         } catch (error) {
 
-            if (error.message === 'Network Error') {
-                throw new AuthenticationError(503, {type: 'NetworkError'})
-            } else {
-                let errorObject = {
-                    status: (error.response.status ? error.response.status : 400),
-                    data: error.response.data
-                }
-                throw new AuthenticationError(errorObject.status, errorObject.data)
+            let errorObject = {
+                status: (error.response.status ? error.response.status : 400),
+                data: error.response.data
             }
+            throw new AuthenticationError(errorObject.status, errorObject.data)
+        }
+    },
+
+    async register(newUser) {
+
+        try {
+            const response = await ApiService.post("auth/register", {
+                name: newUser.name,
+                email: newUser.email,
+                password: newUser.password,
+                password_confirmation: newUser.confirmed_password
+            });
+
+            if (response.status === 201) {
+
+                return {
+                    status: response.status,
+                    message: response.data.message,
+                }
+
+
+            }
+        }  catch (error) {
+
+            let errorObject = {
+                status: (error.response.status ? error.response.status : 422),
+                message: error.response.data.message,
+                errors: error.response.data.errors
+            }
+            throw new AuthenticationError(errorObject.status, errorObject.message, errorObject.errors)
         }
     },
 

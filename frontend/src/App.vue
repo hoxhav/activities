@@ -1,12 +1,21 @@
 <template>
   <v-app>
-    <router-view></router-view>
+
+
+      <app-notifications ref="notifications"/>
+      <router-view></router-view>
+
+
   </v-app>
+
 </template>
 
 <script>
 
 export default {
   name: 'App',
+
+
 };
+
 </script>

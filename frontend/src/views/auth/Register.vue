@@ -48,7 +48,6 @@
                                 prepend-icon="mdi-lock"
                                 type="password"
                                 v-model="confirmed_password"
-                                :rules="confirmPasswordRules"
                             />
 
 
@@ -101,8 +100,35 @@ export default {
 
     methods: {
 
-        handleRegister: function () {
+        handleRegister: async function () {
             if (!this.$refs.register.validate()) return;
+
+            let newUser = {
+                name: this.name,
+                email: this.email.toLowerCase(),
+                password: this.password,
+                confirmed_password: this.confirmed_password
+            }
+
+            let response = await this.$root.$store.dispatch('auth/register', {
+                newUser
+            });
+
+            let message = this.$root.$store.getters['auth/authenticationMessage'];
+            let status = this.$root.$store.getters['auth/authenticationStatus'];
+
+            if(status == 201) {
+
+                //TODO: message
+                this.login();
+
+            } else {
+
+                let errors = this.$root.$store.getters['auth/registrationFormErrors'];
+
+            }
+
+
 
         },
 

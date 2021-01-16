@@ -1,12 +1,12 @@
-import {AuthenticationError, UserService} from '@/services/user.service';
+import {AuthenticationError, RegistrationError,  UserService} from '@/services/user.service';
 import router from '@/router';
 import store from '../index.js';
 
 const state = {
     authenticating: false,
-    activities: [],
     status: 0,
     message: '',
+    registrationErrors: [],
 };
 
 const getters = {
@@ -19,15 +19,17 @@ const getters = {
         return state.message;
     },
 
+    registrationFormErrors: (state) => {
+        return state.registrationErrors
+    },
+
     authenticating: (state) => {
 
         return state.authenticating;
     },
 
-    activities: (state) => {
 
-        return state.activities;
-    }
+
 };
 
 const mutations = {
@@ -38,21 +40,23 @@ const mutations = {
         state.status = 0;
     },
 
-    loginSuccess(state, value) {
+    success(state, value) {
         state.authenticating = false;
         state.status = value.status;
-        state.activities = value.activities;
-        state.message = "Successfully logged in.";
-    },
-
-    setUserActivities(state, value) {
-        state.activities = value;
+        state.message = value.message;
     },
 
     loginError(state, {errorCode, errorMessage}) {
         state.authenticating = false;
         state.status = errorCode;
         state.message = errorMessage.error;
+    },
+
+    registrationError(state, {errorCode, errorMessage, errors}) {
+        state.authenticating = false;
+        state.status = errorCode;
+        state.message = errorMessage;
+        state.registrationErrors = errors;
     }
 
 };
@@ -65,14 +69,11 @@ const actions = {
         try {
             const response = await UserService.login(email, password);
 
+
             if (response.status === 200) {
 
-                commit('loginSuccess', response);
+                commit('success', response);
 
-                return {
-                    status: response.status,
-                    message: 'Sukses!'
-                }
             }
 
         } catch (e) {
@@ -85,9 +86,31 @@ const actions = {
         }
     },
 
+    async register({commit}, {newUser}) {
+
+        try {
+
+            const response = await UserService.register(newUser);
+
+            if (response.status === 201) {
+
+                commit('success', response);
+
+            };
+
+        } catch (e) {
+
+            if (e instanceof AuthenticationError) {
+                commit('registrationError', {errorCode: e.errorCode, errorMessage: e.message, errors: e.errors})
+
+            }
+            return e;
+        }
+    },
+
     async logout() {
         await UserService.logout();
-        await router.push('/');
+       // await router.push('/');
     }
 };
 

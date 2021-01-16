@@ -4,22 +4,24 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
 import ApiService from "./services/api.service";
-import {rules} from './utilities/form-validation-input.utility.js'
-Vue.config.productionTip = false
+import {rules} from './utilities/form-validation-input.utility.js';
+import Notifications from "@/components/utils/Notifications";
+
+Vue.component('app-notifications', Notifications);
+
+Vue.config.productionTip = false;
+
+
 
 /**
- * mixins
+ * Utils components
  */
-import axiosWrapper from './mixins/axiosWrapper';
-
-
 
 
 (async function main() {
 
   await ApiService.init(process.env.VUE_APP_BASE_URL);
 
-  Vue.mixin(axiosWrapper);
 
   new Vue({
     router,
@@ -30,10 +32,13 @@ import axiosWrapper from './mixins/axiosWrapper';
 
       return {
 
-        rules
+        rules,
 
       }
     },
+
+
+
 
 
     render: h => h(App)
