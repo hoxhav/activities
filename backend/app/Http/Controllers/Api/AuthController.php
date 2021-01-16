@@ -68,7 +68,10 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
-        return response()->json(auth()->user());
+//        return response()->json([
+//            'user' =>Auth::user()->with('activities')->get()]);
+
+        return response()->json(Auth::user());
     }
 
     /**
@@ -104,7 +107,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            'user' => Auth::user()->activities()->get(),
+            //'user' => $this->me()->getOriginalContent()['user'],
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
