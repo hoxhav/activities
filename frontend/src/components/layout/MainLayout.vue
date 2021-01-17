@@ -1,8 +1,9 @@
 <template>
     <v-app>
-        <app-navigation-drawer />
+        <app-navigation-drawer :drawer.sync="drawer" />
 
-<!--        <app-header :drawer.sync="drawer"/>-->
+        <app-header :drawer.sync="drawer"/>
+
         <v-main>
             <v-container fluid>
                 <router-view></router-view>
@@ -18,10 +19,17 @@ import AppNavigationDrawer from "./AppNavigationDrawer";
 
 export default {
     name: "MainLayout",
+
     components: {
         AppHeader,
         AppNavigationDrawer
     },
+
+    data() {
+        return {
+            drawer: true
+        }
+    }
 
 }
 </script>
