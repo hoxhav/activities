@@ -65,7 +65,6 @@ router.beforeEach(async (to, from, next) => {
             await store.dispatch('activities/fetchActivities');
         }
 
-
     }
 
     next();

@@ -29,7 +29,6 @@ const getters = {
     },
 
 
-
 };
 
 const mutations = {
@@ -110,7 +109,7 @@ const actions = {
 
     async logout() {
         await UserService.logout();
-       // await router.push('/');
+        await router.push('/').catch(()=>{});;
     }
 };
 

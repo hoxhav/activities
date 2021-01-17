@@ -3,6 +3,7 @@
 
 
       <app-notifications ref="notifications"/>
+
       <router-view></router-view>
 
 

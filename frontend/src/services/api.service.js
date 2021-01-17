@@ -31,8 +31,10 @@ const ApiService = {
         return Vue.prototype.$axios.get(resource)
     },
 
-    post(resource, data) {
-        return Vue.prototype.$axios.post(resource, data)
+    async post(resource, data) {
+
+        return Vue.prototype.$axios.post(resource, data);
+
     },
 
     put(resource, data) {
@@ -62,6 +64,8 @@ const ApiService = {
             },
             (error) => {
                 if (error.request.status == 401) {
+                    store.commit("utils/setStatus", error.request.status);
+                    store.commit("utils/setMessage", error.request.statusText);
                     store.dispatch('auth/logout');
                 }
 

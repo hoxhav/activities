@@ -50,8 +50,6 @@ export default {
 
         return {
 
-
-
             color: '',
 
             auto_heigth: true,
@@ -60,24 +58,17 @@ export default {
 
             snackbar_content: '',
 
-            timeout: 5000
-
+            timeout: 5000,
         }
 
     },
 
     computed: {
-        errors()  {
-            return this.$store.getters['utils/getErrors']
+
+        status: function () {
+            return this.$store.getters['utils/getStatus'];
         },
 
-
-
-        status(){ return this.$store.getters['utils/getStatus']} ,
-
-        warning(){return this.$store.getters['utils/getWarning']} ,
-
-        success(){return this.$store.getters['utils/getSuccess']}  ,
     },
 
     /**
@@ -85,57 +76,15 @@ export default {
      */
     watch: {
 
-        // /**
-        //  *  status
-        //  */
+
         status: function () {
+            if(this.status > 0) {
 
-            this.showAlert();
+                this.showAlert();
 
+            }
         },
-        //
-        // /**
-        //  *
-        //  */
-        errors: function () {
 
-            this.showAlert();
-
-        },
-        //
-        // /**
-        //  *
-        //  */
-        // warning: function () {
-        //     this.warning = this.$root.warning;
-        //
-        //     this.showAlert();
-        //
-        // },
-        //
-        // /**
-        //  *
-        //  */
-        // success: function (newVal, oldVal) {
-        //
-        //     this.success = this.$root.success;
-        //
-        //     this.showAlert();
-        //
-        // }
-
-    },
-
-    created() {
-
-    },
-
-    /**
-     *
-     */
-    mounted() {
-
-        this.showAlert();
 
     },
 
@@ -148,58 +97,23 @@ export default {
              *
              */
             showAlert: function () {
-                let snackbar = false;
 
-                /**
-                 *
-                 */
-                if (this.status.length > 0) {
-                    this.snackbar_content = this.status;
-                    this.color = 'info';
-                    snackbar = true;
-                }
 
-                /**
-                 *
-                 */
-                if (this.warning.length > 0) {
-                    this.snackbar_content = this.warning;
-                    this.color = 'warning';
-                    snackbar = true;
-                }
+                if (this.status >= 200 && this.status < 300) {
 
-                /**
-                 *
-                 */
-                if (typeof this.errors.length == 'undefined') {
-
-                    this.snackbar_content = this.errors;
-                    this.color = 'error';
-                    snackbar = true;
-
-                } else if (this.errors.length > 0) {
-
-                    this.snackbar_content = this.errors;
-                    snackbar = true;
-                    this.color = 'error';
-
-                }
-
-                /**
-                 *
-                 */
-                if (this.success.length > 0) {
-                    this.snackbar_content = this.success;
                     this.color = 'success';
-                    snackbar = true;
+
+                } else if(this.status >= 400) {
+
+                    this.color = 'error';
+
                 }
 
-                this.snackbar = snackbar;
+                this.snackbar_content =  this.$store.getters['utils/getMessage'];
 
-                /**
-                 *
-                 */
-           //     if (this.snackbar == true) setTimeout(this.reset, 2000);
+                this.snackbar = true;
+
+                if (this.snackbar == true) setTimeout(this.reset, 2000);
 
             },
 
@@ -207,7 +121,8 @@ export default {
              *
              */
             reset: function () {
-             //   this.$root.resetNotifications();
+                this.snackbar = false;
+                this.$store.commit('utils/resetNotifications')
             }
 
         }

@@ -35,13 +35,17 @@ const actions = {
 
     async fetchActivities({commit}) {
 
-        let response = await ApiService.get('/activities');
+        try  {
+            let response = await ApiService.get('/activities');
 
-        let activities = response.data;
+            let activities = response.data;
 
-        commit('setActivities', activities.data);
+            commit('setActivities', activities.data);
 
-        commit('setFetchedActivities', true);
+            commit('setFetchedActivities', true);
+        } catch (error) {
+            console.log(error);
+        }
 
     },
 

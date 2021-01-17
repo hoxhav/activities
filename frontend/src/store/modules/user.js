@@ -1,4 +1,5 @@
 import ApiService from '@/services/api.service';
+import {AuthenticationError} from "@/services/user.service";
 
 const state = {
     fetchedUser: false,
@@ -54,14 +55,22 @@ const actions = {
 
     async fetchUser({commit}) {
 
-        let response = await ApiService.post('/auth/me');
+        try {
 
-        let user = response.data;
+            let response = await ApiService.post('/auth/me');
 
-        commit('setId', user.id);
-        commit('setName', user.name);
-        commit('setEmail', user.email);
-        commit('setFetchedUser', true);
+            let user = response.data;
+
+            commit('setId', user.id);
+            commit('setName', user.name);
+            commit('setEmail', user.email);
+            commit('setFetchedUser', true);
+
+        } catch (error ) {
+
+            console.log(error);
+
+        }
 
     },
 

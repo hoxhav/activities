@@ -36,7 +36,7 @@ const UserService = {
                 await ApiService.setHeader();
                 return {
                     status: response.status,
-                    message: response.statusText,
+                    message: "User successfully authenticated.",
                     token: response.data.access_token
                 }
             } else {

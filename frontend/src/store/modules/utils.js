@@ -1,30 +1,20 @@
 const state = {
-    status: '',
 
-    errors: '',
+    status: 0,
 
-    warning: '',
+    message: '',
 
-    success: '',
 };
 
 const getters = {
 
+    getMessage: (state) => {
+        return state.message;
+    },
+
     getStatus: (state) => {
         return state.status;
     },
-
-    getErrors: (state) => {
-        return state.errors;
-    },
-
-    getWarning: (state) => {
-        return state.warning;
-    },
-
-    getSuccess: (state) => {
-        return state.success;
-    }
 
 };
 
@@ -34,24 +24,19 @@ const mutations = {
         state.status = value;
     },
 
-    setErrors(state, value) {
-        state.errors = value;
+    setMessage(state, value) {
+        state.message = value;
     },
 
-    setWarning(state, value) {
-        state.warning = value;
-    },
+    resetNotifications(state) {
+        state.message = '';
+        state.status = 0;
 
-    setSuccess(state, value) {
-        state.success = value;
     },
-
 
 };
 
 const actions = {
-
-
 
 };
 

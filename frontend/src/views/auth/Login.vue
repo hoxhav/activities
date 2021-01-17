@@ -93,20 +93,11 @@ export default {
             let status = this.$root.$store.getters['auth/authenticationStatus'];
 
             this.$store.commit("utils/setStatus", status);
-            this.$store.commit("utils/setErrors", message);
-            if(status == 401) {
+            this.$store.commit("utils/setMessage", message);
 
-        //TODO: Snackbar
+            if(status == 200) {
 
-              //  this.$root.errors = message;
-
-
-             //   this.$root.status = status;
-
-
-            } else {
-
-               // await this.$router.push("/activities");
+                await this.$router.push("/activities");
 
             }
 

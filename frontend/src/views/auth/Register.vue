@@ -48,6 +48,7 @@
                                 prepend-icon="mdi-lock"
                                 type="password"
                                 v-model="confirmed_password"
+                                :rules="confirmPasswordRules"
                             />
 
 
@@ -55,6 +56,7 @@
 
                         <h3>Already own an account? <a @click="login">Login here</a></h3>
 
+                        <div style="color: red" v-if="detailErrorMessages.length > 0">{{detailErrorMessages}}</div>
                     </v-card-text>
 
                     <v-card-actions>
@@ -84,7 +86,7 @@ export default {
 
             name: '',
 
-            errorMessage: '',
+            detailErrorMessages: '',
 
             password: '',
 
@@ -110,24 +112,27 @@ export default {
                 confirmed_password: this.confirmed_password
             }
 
-            let response = await this.$root.$store.dispatch('auth/register', {
-                newUser
-            });
+            let response = await this.$root.$store.dispatch('auth/register', {newUser});
 
             let message = this.$root.$store.getters['auth/authenticationMessage'];
             let status = this.$root.$store.getters['auth/authenticationStatus'];
 
-            if(status == 201) {
+            this.$store.commit("utils/setStatus", status);
+            this.$store.commit("utils/setMessage", message);
 
-                //TODO: message
-                this.login();
-
-            } else {
+            if(status != 201) {
 
                 let errors = this.$root.$store.getters['auth/registrationFormErrors'];
 
-            }
+                for (let key of Object.keys(errors)) {
+                    this.detailErrorMessages += errors[key][0];
+                }
 
+            } else {
+                this.detailErrorMessages = '';
+
+                this.login();
+            }
 
 
         },
