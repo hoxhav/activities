@@ -1,6 +1,7 @@
 import {AuthenticationError, RegistrationError,  UserService} from '@/services/user.service';
 import router from '@/router';
 import store from '../index.js';
+import resetStoreFlags from "@/utilities/reset-store.utility";
 
 const state = {
     authenticating: false,
@@ -108,6 +109,7 @@ const actions = {
     },
 
     async logout() {
+        resetStoreFlags(store);
         await UserService.logout();
         await router.push('/').catch(()=>{});;
     }

@@ -1,7 +1,7 @@
 <template>
 
 
-    <v-snackbar top :color="color" v-model="snackbar" :timeout="timeout">
+    <v-snackbar bottom :color="color" v-model="snackbar" :timeout="timeout">
 
         <template v-if="typeof snackbar_content == 'object' ">
 

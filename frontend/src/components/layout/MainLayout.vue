@@ -1,15 +1,23 @@
 <template>
+
     <v-app>
+
         <app-navigation-drawer :drawer.sync="drawer" />
 
         <app-header :drawer.sync="drawer"/>
 
         <v-main>
+
             <v-container fluid>
+
                 <router-view></router-view>
+
             </v-container>
+
         </v-main>
+
     </v-app>
+
 </template>
 
 

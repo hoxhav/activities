@@ -1,4 +1,5 @@
 <template>
+
     <v-app>
 
         <app-notifications ref="notifications"/>

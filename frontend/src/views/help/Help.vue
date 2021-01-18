@@ -1,13 +1,21 @@
 <template>
-<v-container class="ma-0">
-    Help
-</v-container>
+
+    <v-container class="pa-0">
+
+        <h2>I love Sabicom ❤</h2>
+
+    </v-container>
+
 </template>
 
 <script>
+
 export default {
-name: "Help"
+
+    name: "Help"
+
 }
+
 </script>
 
 <style scoped>

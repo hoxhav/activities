@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\activity\StoreActivityRequest;
 use App\Http\Requests\activity\UpdateActivityRequest;
 use App\Models\Activity;
+use http\Env\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class ActivityController extends Controller
 
         return response()->json([
             "success" => true,
-            "data" => Auth::user()->activities()->get()
+            "data" => Auth::user()->activities()->where('status', false)->get()
         ]);
 
     }
@@ -100,7 +101,7 @@ class ActivityController extends Controller
 
         return response()->json([
             "success" => true,
-            "data" => $activity
+            "data" => $id
         ]);
 
     }

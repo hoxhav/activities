@@ -28,7 +28,9 @@ const ApiService = {
     },
 
     async get(resource) {
-        return Vue.prototype.$axios.get(resource)
+
+        return Vue.prototype.$axios.get(resource);
+
     },
 
     async post(resource, data) {
@@ -37,12 +39,22 @@ const ApiService = {
 
     },
 
-    put(resource, data) {
-        return Vue.prototype.$axios.put(resource, data)
+    async put(resource, data) {
+
+        return Vue.prototype.$axios.put(resource, data);
+
     },
 
-    delete(resource) {
-        return Vue.prototype.$axios.delete(resource)
+    async patch(resource) {
+
+        return Vue.prototype.$axios.patch(resource);
+
+    },
+
+    async delete(resource) {
+
+        return Vue.prototype.$axios.delete(resource);
+
     },
 
     /**
