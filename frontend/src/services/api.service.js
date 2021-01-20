@@ -4,7 +4,7 @@ import TokenService from './token.service.js';
 import axios from "axios";
 
 const ApiService = {
-    async init(baseURL = "http://127.0.0.1:8000/api") {
+    async init(baseURL = "https://still-beach-83434.herokuapp.com/api") {
 
         Vue.prototype.$axios = axios;
 

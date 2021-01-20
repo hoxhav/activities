@@ -1,7 +1,7 @@
 <template>
     <v-app-bar color="primary" dense clipped-left app>
         <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" color="white"/>
-        <v-toolbar-title style="color: white;">{{ 'Sabicom' }}</v-toolbar-title>
+        <v-toolbar-title style="color: white;">{{ 'Activities' }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
 

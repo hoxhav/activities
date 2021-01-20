@@ -7,6 +7,7 @@ use App\Http\Requests\auth\RegisterAuthRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Validator;
 use App\Http\Controllers\Controller;
 
@@ -35,6 +36,8 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized, wrong credentials.'], 401);
         }
+
+
 
         return $this->respondWithToken($token);
     }
