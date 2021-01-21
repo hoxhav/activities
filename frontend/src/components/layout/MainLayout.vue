@@ -22,15 +22,13 @@
 
 
 <script>
-import AppHeader from "./AppHeader";
-import AppNavigationDrawer from "./AppNavigationDrawer";
 
 export default {
     name: "MainLayout",
 
     components: {
-        AppHeader,
-        AppNavigationDrawer
+        AppHeader: () => import(/* webpackChunkName: "appHeader" */'./AppHeader'),
+        AppNavigationDrawer: () => import(/* webpackChunkName: "appNavigationDrawer" */'./AppNavigationDrawer')
     },
 
     data() {

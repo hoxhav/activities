@@ -11,7 +11,7 @@ function configRoutes() {
         {
             path: '/',
             name: 'Login',
-            component: () => import('@/views/auth/Login.vue'),
+            component: () => import(/* webpackChunkName: "login" */'@/views/auth/Login.vue'),
             meta: {
                 public: true,
                 onlyWhenLoggedOut: true
@@ -20,7 +20,7 @@ function configRoutes() {
         {
             path: '/register',
             name: 'Register',
-            component: () => import('@/views/auth/Register.vue'),
+            component: () => import(/* webpackChunkName: "register" */'@/views/auth/Register.vue'),
             meta: {
                 public: true,
                 onlyWhenLoggedOut: true
@@ -29,13 +29,14 @@ function configRoutes() {
         {
             path: '/',
             name: 'MainLayout',
-            component: () => import('../components/layout/MainLayout.vue'),
+            component: () => import(/* webpackChunkName: "mainLayout" */'../components/layout/MainLayout.vue'),
             children: getUserRoutes()
         }
     ];
 }
 
 const router = new VueRouter({
+    mode: 'history',
     routes: configRoutes()
 });
 

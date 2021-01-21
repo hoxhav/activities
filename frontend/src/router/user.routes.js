@@ -1,5 +1,5 @@
-const Activities = () => import('../views/activities/Activities.vue');
-const Help = () => import('../views/help/Help.vue');
+const Activities = () => import(/* webpackChunkName: "activities" */'../views/activities/Activities.vue');
+const Help = () => import(/* webpackChunkName: "help" */'../views/help/Help.vue');
 
 export default function getUserRoutes() {
     return [

@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify';
 import ApiService from "./services/api.service";
 import {rules} from './utilities/form-validation-input.utility.js';
 import Notifications from "@/components/utils/Notifications";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
@@ -18,7 +19,7 @@ Vue.component('app-notifications', Notifications);
 
 (async function main() {
 
-    await ApiService.init(process.env.VUE_APP_BASE_URL);
+    await ApiService.init(process.env.VUE_APP_API_BASE_URL);
 
 
     new Vue({

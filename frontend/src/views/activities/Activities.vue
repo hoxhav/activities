@@ -12,15 +12,15 @@
 
 <script>
 
-import AddActivity from "@/components/activities/AddActivity";
-
-import Activity from "@/components/activities/Activity";
 
 export default {
 
     name: "Activities",
 
-    components: {Activity, AddActivity},
+    components: {
+        Activity: () => import(/* webpackChunkName: "activity" */'@/components/activities/Activity'),
+        AddActivity: () => import(/* webpackChunkName: "addActivity" */'@/components/activities/AddActivity')
+    },
 
 }
 </script>
