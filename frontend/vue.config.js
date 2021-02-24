@@ -12,18 +12,17 @@ module.exports = {
         "vuetify"
     ],
 
-    chainWebpack: (config) => {
-
-        config.plugins.delete('prefetch')
-
-    },
-
     configureWebpack: {
 
         optimization: {
             minimize: true
         }
     },
+
+    chainWebpack: config => {
+
+    	config.plugins.delete('prefetch')
+  },
 
     pwa: {
         name: 'Activities',

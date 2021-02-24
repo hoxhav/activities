@@ -47,7 +47,12 @@
 
                         <v-spacer></v-spacer>
 
-                        <v-btn tile color="primary" @click="handleLogin">Login</v-btn>
+                        <v-btn
+                            tile
+                            color="primary"
+                            :loading="loading"
+                            :disabled="loading"
+                            @click="handleLogin">Login</v-btn>
 
                     </v-card-actions>
 
@@ -77,6 +82,8 @@ export default {
 
             password: '',
 
+            loading: false,
+
         }
 
     },
@@ -87,6 +94,8 @@ export default {
 
             if (!this.$refs.login.validate()) return;
 
+            this.loading = true;
+
             let response = await this.$root.$store.dispatch('auth/login', {email: this.email.toLowerCase(), password: this.password});
 
             let message = this.$root.$store.getters['auth/authenticationMessage'];
@@ -96,6 +105,8 @@ export default {
             this.$store.commit("utils/setMessage", message);
 
             if(status == 200) {
+
+                this.$store.commit("utils/setLoading", true);
 
                 await this.$router.push("/activities");
 

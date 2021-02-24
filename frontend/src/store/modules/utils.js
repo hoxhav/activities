@@ -4,6 +4,8 @@ const state = {
 
     message: '',
 
+    loading: false,
+
 };
 
 const getters = {
@@ -16,6 +18,10 @@ const getters = {
         return state.status;
     },
 
+    getLoadingBarStatus: (state) => {
+        return state.loading;
+    }
+
 };
 
 const mutations = {
@@ -26,6 +32,10 @@ const mutations = {
 
     setMessage(state, value) {
         state.message = value;
+    },
+
+    setLoading(state, value) {
+        state.loading = value;
     },
 
     resetNotifications(state) {

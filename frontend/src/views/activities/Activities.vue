@@ -22,6 +22,10 @@ export default {
         AddActivity: () => import(/* webpackChunkName: "addActivity" */'@/components/activities/AddActivity')
     },
 
+    mounted() {
+        this.$store.commit("utils/setLoading", false);
+    }
+
 }
 </script>
 

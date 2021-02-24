@@ -2,9 +2,7 @@
     <v-app-bar color="primary" dense clipped-left app>
         <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" color="white"/>
         <v-toolbar-title style="color: white;">{{ 'Activities' }}</v-toolbar-title>
-
         <v-spacer></v-spacer>
-
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
                 <v-btn color="white" dark elevation="0" v-bind="attrs" v-on="on" fab small>
@@ -43,6 +41,12 @@ export default {
             }
         }
     },
+
+    data() {
+        return {
+            loading: true,
+        }
+    }
 
 }
 </script>

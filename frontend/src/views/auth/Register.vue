@@ -63,7 +63,12 @@
 
                         <v-spacer></v-spacer>
 
-                        <v-btn tile color="primary" @click="handleRegister">Register</v-btn>
+                        <v-btn
+                            tile
+                            color="primary"
+                            :loading="loading"
+                            :disabled="loading"
+                            @click="handleRegister">Register</v-btn>
 
                     </v-card-actions>
                 </v-card>
@@ -104,6 +109,8 @@ export default {
 
         handleRegister: async function () {
             if (!this.$refs.register.validate()) return;
+
+            this.loading = true;
 
             let newUser = {
                 name: this.name,

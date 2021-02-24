@@ -27,13 +27,13 @@ export default {
     name: "MainLayout",
 
     components: {
-        AppHeader: () => import(/* webpackChunkName: "appHeader" */'./AppHeader'),
+        AppHeader: () => import(/* webpackChunkName: "addHeader" */'./AppHeader'),
         AppNavigationDrawer: () => import(/* webpackChunkName: "appNavigationDrawer" */'./AppNavigationDrawer')
     },
 
     data() {
         return {
-            drawer: true
+            drawer: true,
         }
     }
 
