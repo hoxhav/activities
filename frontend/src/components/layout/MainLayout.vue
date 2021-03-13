@@ -27,8 +27,8 @@ export default {
     name: "MainLayout",
 
     components: {
-        AppHeader: () => import(/* webpackChunkName: "addHeader" */'./AppHeader'),
-        AppNavigationDrawer: () => import(/* webpackChunkName: "appNavigationDrawer" */'./AppNavigationDrawer')
+        AppHeader: () => import('./AppHeader'),
+        AppNavigationDrawer: () => import('./AppNavigationDrawer')
     },
 
     data() {

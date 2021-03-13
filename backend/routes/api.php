@@ -14,20 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+
+    'prefix' => 'auth'
+
+], function () {
+
+    Route::post('login', 'AuthController@login')->name('login');
+
+    Route::post('register', 'AuthController@register')->name('register');
+});
+
+
 
 
 Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => 'user',
 
-], function ($router) {
+    'middleware' => 'jwt.verify'
 
-    Route::post('login', 'AuthController@login')->name('login');
-    Route::post('register', 'AuthController@register')->name('register');
+], function () {
+
     Route::post('logout', 'AuthController@logout');
+
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+
+    Route::get('me', 'AuthController@me');
 
 });
 
@@ -36,7 +49,7 @@ Route::group([
 
     'middleware' => 'jwt.verify',
 
-], function ($router) {
+], function () {
 
     Route::get('activities', 'ActivityController@index');
 

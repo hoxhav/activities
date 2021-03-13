@@ -31,13 +31,13 @@
             >
                 <v-list-item :to="'/activities'">
                     <v-list-item-icon>
-                        <v-icon>mdi-format-list-bulleted</v-icon>
+                        <v-icon>{{formatListBulleted}}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>Activities</v-list-item-title>
                 </v-list-item>
                 <v-list-item :to="'/help'">
                     <v-list-item-icon>
-                        <v-icon>mdi-information</v-icon>
+                        <v-icon>{{information}}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-title>Help</v-list-item-title>
                 </v-list-item>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import {mdiFormatListBulleted, mdiInformation} from "@mdi/js";
+
 export default {
     name: "AppNavigationDrawer",
 
@@ -84,7 +86,9 @@ export default {
 
             fullName: this.$store.getters['user/getName'],
 
-            email: this.$store.getters['user/getEmail']
+            email: this.$store.getters['user/getEmail'],
+            formatListBulleted:mdiFormatListBulleted,
+            information: mdiInformation
 
         }
     }

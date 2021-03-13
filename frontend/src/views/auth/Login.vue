@@ -21,7 +21,7 @@
 
                             <v-text-field
                                 label="Email"
-                                prepend-icon="mdi-email"
+                                :prepend-icon="emailIcon"
                                 type="text"
                                 v-model="email"
                                 :rules="$root.rules.email"
@@ -30,7 +30,7 @@
 
                             <v-text-field
                                 label="Password"
-                                prepend-icon="mdi-lock"
+                                :prepend-icon="lockIcon"
                                 type="password"
                                 v-model="password"
                                 :rules="$root.rules.password"
@@ -69,6 +69,8 @@
 <script>
 
 
+import {mdiEmail, mdiLock} from "@mdi/js";
+
 export default {
     name: "Login",
 
@@ -83,6 +85,10 @@ export default {
             password: '',
 
             loading: false,
+
+            emailIcon: mdiEmail,
+
+            lockIcon: mdiLock,
 
         }
 

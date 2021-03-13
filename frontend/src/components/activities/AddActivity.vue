@@ -41,7 +41,7 @@
                                 v-on="on"
                             >
 
-                                <v-icon>mdi-plus</v-icon>
+                                <v-icon>{{plus}}</v-icon>
 
                             </v-btn>
 
@@ -63,6 +63,8 @@
 
 <script>
 
+import {mdiPlus} from "@mdi/js";
+
 export default {
 
     name: "AddActivity",
@@ -74,7 +76,8 @@ export default {
 
             name: '',
 
-            description: ''
+            description: '',
+            plus: mdiPlus
 
 
         }

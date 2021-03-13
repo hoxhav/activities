@@ -18,8 +18,8 @@ export default {
     name: "Activities",
 
     components: {
-        Activity: () => import(/* webpackChunkName: "activity" */'@/components/activities/Activity'),
-        AddActivity: () => import(/* webpackChunkName: "addActivity" */'@/components/activities/AddActivity')
+        Activity: () => import('@/components/activities/Activity'),
+        AddActivity: () => import('@/components/activities/AddActivity')
     },
 
     mounted() {

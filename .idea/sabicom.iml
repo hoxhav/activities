@@ -94,7 +94,6 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/filp/whoops" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/mockery/mockery" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psy/psysh" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/doctrine/instantiator" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/doctrine/inflector" />
@@ -117,7 +116,10 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/phar-io/version" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/phar-io/manifest" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/predis/predis" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/barryvdh/laravel-debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/maximebf/debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/swiftmailer/swiftmailer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

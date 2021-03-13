@@ -1,3 +1,5 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
     "lintOnSave": false,
     "runtimeCompiler": true,
@@ -12,17 +14,22 @@ module.exports = {
         "vuetify"
     ],
 
+    chainWebpack: (config) => {
+        config.plugins.delete('prefetch'),
+        config.plugins.delete('preload')
+    },
+
     configureWebpack: {
 
         optimization: {
             minimize: true
-        }
+        },
+
+        plugins: [new BundleAnalyzerPlugin()]
+
     },
 
-    chainWebpack: config => {
 
-    	config.plugins.delete('prefetch')
-  },
 
     pwa: {
         name: 'Activities',

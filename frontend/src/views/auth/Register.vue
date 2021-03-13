@@ -20,7 +20,7 @@
 
                             <v-text-field
                                 label="Name"
-                                prepend-icon="mdi-account"
+                                :prepend-icon="iconAccount"
                                 type="text"
                                 v-model="name"
                                 :rules="$root.rules.required"
@@ -28,7 +28,7 @@
 
                             <v-text-field
                                 label="Email"
-                                prepend-icon="mdi-email"
+                                :prepend-icon="iconEmail"
                                 type="text"
                                 v-model="email"
                                 :rules="$root.rules.email"
@@ -36,7 +36,7 @@
 
                             <v-text-field
                                 label="Password"
-                                prepend-icon="mdi-lock"
+                                :prepend-icon="iconLock"
                                 type="password"
                                 v-model="password"
                                 :rules="$root.rules.password"
@@ -45,7 +45,7 @@
 
                             <v-text-field
                                 label="Repeat password"
-                                prepend-icon="mdi-lock"
+                                :prepend-icon="iconLock"
                                 type="password"
                                 v-model="confirmed_password"
                                 :rules="confirmPasswordRules"
@@ -80,6 +80,8 @@
 
 <script>
 
+import {mdiAccount, mdiEmail, mdiLock} from "@mdi/js";
+
 export default {
     name: "Login",
 
@@ -101,6 +103,13 @@ export default {
                 (value) =>
                     value === this.password || 'The password confirmation does not match.',
             ],
+
+            iconAccount: mdiAccount,
+
+            iconEmail: mdiEmail,
+
+            iconLock: mdiLock,
+
         }
 
     },

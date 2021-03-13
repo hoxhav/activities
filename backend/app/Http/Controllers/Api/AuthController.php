@@ -13,15 +13,6 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
 
     /**
      * Get a JWT via given credentials.
@@ -36,8 +27,6 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized, wrong credentials.'], 401);
         }
-
-
 
         return $this->respondWithToken($token);
     }
@@ -71,10 +60,18 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
-//        return response()->json([
-//            'user' =>Auth::user()->with('activities')->get()]);
 
-        return response()->json(Auth::user());
+        $user = Auth::user();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'user' => $user,
+                'activities' => $user->activities()->select(['id', 'name', 'description'])->where('status', false)->get()
+            ]
+
+        ]);
+
     }
 
     /**
@@ -110,7 +107,6 @@ class AuthController extends Controller
     {
         return response()->json([
             'access_token' => $token,
-            //'user' => $this->me()->getOriginalContent()['user'],
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
