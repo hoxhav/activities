@@ -1,5 +1,4 @@
 import ApiService from './api.service'
-import TokenService from './token.service'
 
 class AuthenticationError extends Error {
     constructor(errorCode, message, errors = []) {
@@ -31,26 +30,23 @@ const UserService = {
         try {
             const response = await ApiService.customRequest(requestData);
 
-            if (response.status === 200) {
-                await TokenService.saveToken(response.data.access_token);
-                await ApiService.setHeader();
-                return {
-                    status: response.status,
-                    message: "User successfully authenticated.",
-                    token: response.data.access_token
-                }
-            } else {
-                return {
-                    status: response.status,
-                    message: response.statusText
-                }
+            let message = response.status === 200 ?  "User successfully authenticated." : response.statusText;
+
+
+            return {
+                status: response.status,
+                message: message,
+                user: response.data.data.user ?? null,
+                activities: response.data.data.activities ?? null,
             }
+
         } catch (error) {
 
             let errorObject = {
                 status: (error.response.status ? error.response.status : 400),
                 data: error.response.data
             }
+
             throw new AuthenticationError(errorObject.status, errorObject.data)
         }
     },
@@ -91,12 +87,9 @@ const UserService = {
      * Also remove push notifications token from backend so you won't receive requests when logged out.
      **/
     async logout() {
-        try {
-            await TokenService.removeToken();
-            ApiService.removeHeader();
-        } catch (err) {
-            console.log(err);
-        }
+
+        const response = await ApiService.post("user/logout");
+
     }
 };
 

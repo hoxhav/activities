@@ -116,6 +116,8 @@ export default {
 
                 await this.$router.push("/activities");
 
+            } else {
+                this.loading = false;
             }
 
         },

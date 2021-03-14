@@ -1,12 +1,13 @@
 import {AuthenticationError, RegistrationError,  UserService} from '@/services/user.service';
 import router from '@/router';
 import store from '../index.js';
-import resetStoreFlags from "@/utilities/reset-store.utility";
+import resetStoreFlags from "../../utilities/reset-store.utility";
 
 const state = {
     authenticating: false,
     status: 0,
     message: '',
+    isLoggedIn: false,
     registrationErrors: [],
 };
 
@@ -69,10 +70,20 @@ const actions = {
         try {
             const response = await UserService.login(email, password);
 
-
             if (response.status === 200) {
 
                 commit('success', response);
+
+                if(response.user) {
+                    commit('activities/setActivities', response.activities, { root: true });
+
+                    commit('activities/setFetchedActivities', true, { root: true });
+
+                    commit('user/setId', response.user.id, { root: true });
+                    commit('user/setName', response.user.name, { root: true });
+                    commit('user/setEmail', response.user.email, { root: true });
+                    commit('user/setFetchedUser', true, { root: true });
+                }
 
             }
 

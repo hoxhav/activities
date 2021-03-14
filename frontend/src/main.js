@@ -6,7 +6,6 @@ import vuetify from './plugins/vuetify';
 import ApiService from "./services/api.service";
 import {rules} from './utilities/form-validation-input.utility.js';
 import Notifications from "@/components/utils/Notifications";
-import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 

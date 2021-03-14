@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\auth\LoginAuthRequest;
 use App\Http\Requests\auth\RegisterAuthRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -65,25 +66,39 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'user' => $user,
-                'activities' => $user->activities()->select(['id', 'name', 'description'])->where('status', false)->get()
-            ]
+            'data' => $this->user()
 
         ]);
 
     }
 
+
+    /**
+     * @return array
+     */
+    private function user(): array
+    {
+        $user = Auth::user();
+
+        return  [
+            'user' => $user,
+            'activities' => $user->activities()->select(['id', 'name', 'description'])->where('status', false)->get()
+        ];
+    }
+
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|JsonResponse|\Illuminate\Http\Response
      */
-    public function logout(): JsonResponse
+    public function logout()
     {
-        auth()->logout();
+        $cookie = Cookie::forget('jwt');
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response([
+            'message' => 'Success'
+        ])->withCookie($cookie);
+
     }
 
     /**
@@ -99,16 +114,17 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return JsonResponse
      */
-    protected function respondWithToken($token): JsonResponse
+    protected function respondWithToken(string $token): JsonResponse
     {
+        $cookie = cookie("jwt", $token,  10080);
+
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+            'message' => 'success',
+            'data' => $this->user()
+        ])->withCookie($cookie);
     }
 }

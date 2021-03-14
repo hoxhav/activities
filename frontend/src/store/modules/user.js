@@ -57,9 +57,17 @@ const actions = {
 
         try {
 
-            let response = await ApiService.post('/auth/me');
+            let response = await ApiService.get('/user/me');
 
-            let user = response.data;
+
+            if(!response.data.success)
+                return false
+
+            let user = response.data.data.user;
+
+            commit('activities/setActivities', response.data.data.activities, { root: true });
+
+            commit('activities/setFetchedActivities', true, { root: true });
 
             commit('setId', user.id);
             commit('setName', user.name);

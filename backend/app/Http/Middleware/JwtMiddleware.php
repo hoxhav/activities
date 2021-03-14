@@ -27,6 +27,12 @@ class JwtMiddleware extends BaseMiddleware
 
         try {
 
+            if($jwt = $request->cookie("jwt")) {
+
+                $request->headers->set('Authorization', 'Bearer ' . $jwt);
+
+            }
+
             $user = JWTAuth::parseToken()->authenticate();
 
             if( !$user ) throw new Exception('User Not Found');

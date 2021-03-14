@@ -1,5 +1,7 @@
 Create activities app. 
 
+This is a boiler plate for Laravel API Authentication with HttpOnly cookie and Vue.js
+
 backend
 
 0. Composer install

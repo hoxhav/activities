@@ -16,7 +16,7 @@
                     v-if="activities.length > 0"
                     @click="show_activity_completition = true"
                 >
-                    <v-icon left>mdi-trash-can</v-icon>
+                    <v-icon left>{{trash_can}}</v-icon>
 
                     Completed
 
@@ -97,6 +97,8 @@
 
 <script>
 
+import {mdiTrashCan} from "@mdi/js";
+
 export default {
 
     name: "Activity",
@@ -108,6 +110,8 @@ export default {
             selected_activity: null,
 
             show_activity_completition: false,
+
+            trash_can: mdiTrashCan
         }
     },
 

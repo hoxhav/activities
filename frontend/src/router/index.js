@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import TokenService from "@/services/token.service";
 import store from '../store/index.js';
 import getUserRoutes from './user.routes.js';
 
@@ -47,27 +46,22 @@ router.beforeEach(async (to, from, next) => {
 
     const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut);
 
-    const loggedIn = !!await TokenService.getToken();
+
+    if (!store.getters['user/hasFetchedUser']) {
+        await store.dispatch('user/fetchUser');
+    }
+
+    const loggedIn = store.getters['user/hasFetchedUser'];
 
     if (!isPublic && !loggedIn) {
         return next({path: '/'});
     }
+
     // // Do not allow user to visit login page or register page if they are logged in
     if (loggedIn && onlyWhenLoggedOut) {
         return next( '/activities')
     }
 
-    if(loggedIn) {
-
-        if (!store.getters['user/hasFetchedUser']) {
-            await store.dispatch('user/fetchUser');
-        }
-
-        if (!store.getters['activities/hasFetchedActivities']) {
-            await store.dispatch('activities/fetchActivities');
-        }
-
-    }
 
     next();
 
